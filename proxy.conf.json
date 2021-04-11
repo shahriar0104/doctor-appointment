@@ -1,0 +1,18 @@
+{
+  "/base/": {
+    "target": "http://localhost:3000/",
+    "secure": false,
+    "pathRewrite": {
+      "^/base/": ""
+    },
+    "logLevel": "debug"
+  },
+  "/basegithub/": {
+    "target": "https://raw.githubusercontent.com/shahriar0104/doc-app-json/master/",
+    "secure": false,
+    "pathRewrite": {
+      "^/base/": ""
+    },
+    "logLevel": "debug"
+  }
+}

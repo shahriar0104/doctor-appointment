@@ -1,0 +1,59 @@
+/* change the background color */
+.navbar-custom {
+  background-color: #4c3c3c;
+}
+/*.navbar-custom {*/
+/*  background-color: #D93B3B;*/
+/*}*/
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: rgb(0, 0, 0);
+}
+
+/* change the link color */
+.navbar-nav .nav-link {
+  color: rgb(255, 255, 255);
+}
+
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-nav .nav-item:focus .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: rgb(249, 249, 249);
+}
+
+.btn.btn-sm, .btn.btn-sm:hover, .btn.btn-sm:visited, .btn.btn-sm:target, btn.btn-sm:focus {
+  background-color: white !important;
+  color: #4c3c3c;
+  border: none;
+  border-radius: 20px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-right: 5px;
+}
+
+.dropdown-menu > a:hover {
+  background-color: bisque;
+  background-image: none;
+}
+
+.navbar-toggler {
+  color: transparent;
+  border-color: transparent;
+  outline: none !important;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.navbar-toggler-icon {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-image: url('../../assets/images/menu.png');
+}
+
+.dropdown-toggle::after {
+  display: none;
+}

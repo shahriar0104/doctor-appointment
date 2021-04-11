@@ -1,0 +1,4 @@
+select option {
+  -webkit-appearance: menulist-button;
+  color: black;
+}

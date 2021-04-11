@@ -1,0 +1,155 @@
+<div *ngIf="tempRowData.length > rowInPage" class="my-pagination mb-2 d-flex flex-column flex-md-row">
+
+  <div class="flex-md-grow-1">
+    <div class="d-flex flex-row">
+      <label *ngIf="pageNumber !== 1"
+             (click)="paginateBackward()"
+             type="btn" class="btn-arrow mb-0 d-flex justify-content-center">
+        <span class="d-flex align-self-center"><i class="fa fa-angle-left"></i></span>
+      </label>
+
+      <label [ngClass]="{'btn-active': pageNumber === 1, 'btn-page': pageNumber !== 1}"
+             (click)="paginateFastBackward()"
+             type="btn" class="mb-0 ml-2 d-flex justify-content-center">
+        <span class="d-flex align-self-center">1</span>
+      </label>
+
+      <div class="btn-group">
+        <label *ngIf="((pageNumber - 2) - 1) > 1"
+               class="bullet mb-0 ml-2 d-flex justify-content-center"
+               type="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               style="cursor: pointer">
+    <span class="d-flex align-self-center"
+          appLoadTooltip
+          aria-hidden="true" data-html="true" data-toggle="tooltip"
+          data-placement="top" title="Go to Page">&bull;&bull;&bull;</span>
+        </label>
+        <!--  DROPDOWN 1 GO TO PAGE-->
+        <div class="dropdown-menu" style="min-width: 256px">
+          <p class="font-weight-medium mx-3" (click)="$event.stopPropagation()">Go To Page</p>
+          <hr (click)="$event.stopPropagation()">
+
+          <div class="d-flex justify-content-center mx-3">
+            <div class="input-group" (click)="$event.stopPropagation()" style="cursor: pointer">
+              <input #inputPageNumber1 type='text' id="inputPageNumber1" class="form-control form-control-sm"
+                     [value]="getPageNumber()"
+                     [min]="pageNumber" [max]="totalPage" step="1"
+                     (keypress)="validateNumber($event)"/>
+              <div class="input-group-append" (click)="changePage(1,'+')">
+                <div class="input-group-text">
+                  <i class='fa fa-plus'></i>
+                </div>
+              </div>
+              <div class="input-group-append" (click)="changePage(1, '-')">
+                <div class="input-group-text">
+                  <i class='fa fa-minus'></i>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-sm btn-primary ml-2 px-3" (click)="clickedPage(inputPageNumber1.value)">Go</button>
+          </div>
+
+        </div>
+        <!--  DROPDOWN 1 GO TO PAGE-->
+      </div>
+
+      <label *ngIf="(pageNumber - 2) > 1"
+             (click)="clickedPage(pageNumber - 2)"
+             type="btn" class="btn-page mb-0 ml-2 d-flex justify-content-center">
+        <span class="d-flex align-self-center">{{ pageNumber - 2 }}</span>
+      </label>
+
+      <label *ngIf="(pageNumber - 1) > 1"
+             (click)="clickedPage(pageNumber - 1)"
+             type="btn" class="btn-page mb-0 ml-2 d-flex justify-content-center">
+        <span class="d-flex align-self-center">{{ pageNumber - 1 }}</span>
+      </label>
+
+      <label *ngIf="pageNumber !== 1 && pageNumber !== totalPage" type="btn"
+             class="btn-active mb-0 ml-2 d-flex justify-content-center">
+        <span class="d-flex align-self-center">{{ pageNumber }}</span>
+      </label>
+
+      <label *ngIf="(pageNumber + 1) < totalPage"
+             (click)="clickedPage(pageNumber + 1)"
+             type="btn" class="btn-page mb-0 ml-2 d-flex justify-content-center">
+        <span class="d-flex align-self-center">{{ pageNumber + 1 }}</span>
+      </label>
+
+      <label *ngIf="(pageNumber + 2) < totalPage"
+             (click)="clickedPage(pageNumber + 2)"
+             type="btn" class="btn-page mb-0 ml-2 d-flex justify-content-center">
+        <span class="d-flex align-self-center">{{ pageNumber + 2 }}</span>
+      </label>
+
+      <div *ngIf="(totalPage - (pageNumber + 2)) > 1" class="btn-group">
+        <label class="bullet mb-0 ml-2 d-flex justify-content-center dropdown-toggle"
+               type="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               style="cursor: pointer">
+    <span class="d-flex align-self-center"
+          appLoadTooltip
+          aria-hidden="true" data-html="true" data-toggle="tooltip"
+          data-placement="top" title="Go to Page">&bull;&bull;&bull;</span>
+        </label>
+        <!--  DROPDOWN 2 GO TO PAGE-->
+        <div class="dropdown-menu" (click)="$event.stopPropagation()" style="min-width: 256px">
+          <p class="font-weight-medium mx-3">Go To Page</p>
+          <hr>
+
+          <div class="d-flex justify-content-center mx-3">
+            <div class="input-group" style="cursor: pointer">
+              <input #inputPageNumber2 type='number' id="inputPageNumber2" class="form-control form-control-sm"
+                     [value]="getPageNumber()"
+                     [min]="pageNumber" [max]="totalPage" step="1"
+                     (keypress)="validateNumber($event)"/>
+              <div class="input-group-append" (click)="changePage(2, '+')">
+                <div class="input-group-text">
+                  <i class='fa fa-plus'></i>
+                </div>
+              </div>
+              <div class="input-group-append" (click)="changePage(2,'-')">
+                <div class="input-group-text">
+                  <i class='fa fa-minus'></i>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-sm btn-primary ml-2 px-3" (click)="clickedPage(inputPageNumber2.value)">Go</button>
+          </div>
+
+        </div>
+        <!--  DROPDOWN 2 GO TO PAGE-->
+      </div>
+
+      <label [ngClass]="{'btn-active': pageNumber === totalPage, 'btn-page': pageNumber !== totalPage}"
+             (click)="paginateFastForward()"
+             type="btn" class="mb-0 ml-2 d-flex justify-content-center">
+        <span class="d-flex align-self-center">{{ totalPage }}</span>
+      </label>
+
+      <label *ngIf="pageNumber !== totalPage"
+             (click)="paginateForward()"
+             type="btn" class="btn-arrow mb-0 ml-2 d-flex justify-content-center">
+        <span class="d-flex align-self-center"><i class="fa fa-angle-right"></i></span>
+      </label>
+
+    </div>
+  </div>
+
+  <div class="d-flex flex-row mt-2 mt-md-0">
+    <div class="d-flex align-self-center">
+      <select name="rowsPerPage" id="rowsPerPage" class="custom-select custom-select-sm mb-0"
+              [(ngModel)]="rowInPage" (change)="paginateOnChanges(tempRowData)">
+        <option [value]="5">5</option>
+        <option [value]="10">10</option>
+        <option [value]="50">50</option>
+      </select>
+    </div>
+    <div class="pl-2 d-flex align-self-center pr-4">
+      <p class="mb-0 font-weight-medium">rows per page</p>
+    </div>
+  </div>
+
+</div>
+

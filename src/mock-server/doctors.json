@@ -1,0 +1,347 @@
+{
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 2,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 3,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 4,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 5,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 6,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 7,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 8,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 9,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 10,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 11,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 12,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 13,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 14,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 15,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 16,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 17,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 18,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 19,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 20,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 21,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 22,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 23,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 24,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 25,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "wed": "06:00 PM - 09:00 PM"
+      },
+      "visitDurationInMin": 15
+    },
+    {
+      "id": 26,
+      "name": "Dr. Mary Ellis",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "org": "ABC Hospital",
+      "availability": {
+        "sun": "10:00 AM - 06:00 PM",
+        "mon": "09:00 PM - 11:00 PM",
+        "thu": "11:00 AM - 02:00 PM"
+      },
+      "visitDurationInMin": 15
+    }
+  ],
+  "appointment": [
+    {
+      "id": 1,
+      "name": "Dr. John Doe",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "org": "Kings London Hospital",
+      "schedule": [
+        {
+          "sun": "2021-04-11 10:00 AM"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Dr. John Doe",
+      "org": "Kings London Hospital",
+      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+      "schedule": [
+        {
+          "sun": "2021-04-11 10:00 am"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Dr. Mary Ellis",
+      "org": "ABC Hospital",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "schedule": [
+        {
+          "sun": "2021-04-18 11:00 am"
+        },
+        {
+          "sun": "2021-04-18 10:00 am"
+        },
+        {
+          "sun": "2021-04-18 10:15 am"
+        },
+        {
+          "sun": "2021-04-18 11:15 am"
+        }
+      ]
+    }
+  ]
+}

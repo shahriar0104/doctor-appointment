@@ -1,0 +1,15 @@
+{
+    "appointment": [
+        {
+            "id": 1,
+            "name": "Dr. John Doe",
+            "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+            "org": "Kings London Hospital",
+            "availability": {
+                "sun": "10:00 AM - 06:00 PM",
+                "wed": "06:00 PM - 09:00 PM"
+            },
+            "visitDurationInMin": 15
+        }
+    ]
+}

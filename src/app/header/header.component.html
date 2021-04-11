@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom py-md-2" style="width: 100%;">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img class="logo" src="assets/images/square-health-white.png" alt="Doctor Appointment"/>
+    </a>
+
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" routerLink="/">Doctor Appointment</a>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+

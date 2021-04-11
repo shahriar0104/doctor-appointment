@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="container-fluid pt-5">
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-4 mb-4 mb-md-0 d-flex justify-content-center">
+      <div class="card shadow-lg" style="width: 18rem;">
+        <img class="card-img-top" src="{{ doctor?.image }}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ doctor?.name }}</h5>
+          <p class="card-text">{{ doctor?.org }}</p>
+          <!--      <a href="#" class="btn btn-primary">Go somewhere</a>-->
+        </div>
+      </div>
+    </div>
+
+    <div class="col-8 col-md-3 d-flex justify-content-center flex-column">
+      <div class="mb-4" #flatpickrEl>
+        <div #inputDate class="input-group" style="cursor: pointer">
+          <input type='text' placeholder="select date..." class="form-control" data-input/>
+          <div class="input-group-append">
+            <div class="input-group-text" data-clear>
+              <i class='fa fa-times'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <select [disabled]="disableHours" class="form-control mb-4" name="time" id="time" (change)="changeTime($event)">
+        <option selected="true" disabled="disabled" value="time">Choose Time Slot</option>
+        <option *ngFor="let hour of activeHours[selectedDayIndex]" value="{{ hour }}">{{ hour }}</option>
+      </select>
+
+      <div class="d-flex justify-content-center">
+        <button [disabled]="disableBtn" class="btn btn-primary" (click)="checkBookAppointment()">create appointment</button>
+      </div>
+
+    </div>
+
+  </div>
+
+<!--  <div class="row mt-4 d-flex justify-content-center">-->
+<!--     <button class="btn btn-primary" (click)="createAppointment()">create appointment</button>-->
+<!--  </div>-->
+
+
+</div>

@@ -1,0 +1,104 @@
+.my-pagination {
+  font-size: 0.85rem;
+  background: #dddddd;
+  color: #D93B3B;
+  padding: 16px;
+}
+
+.disabled-arrow {
+  color: #808080;
+}
+
+.bullet {
+  font-size: 1rem;
+}
+
+.dropdown-toggle::after {
+  content: none;
+}
+
+.dropdown-menu {
+  box-shadow: 0 10px 10px #666;
+}
+
+.btn-arrow {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 4px;
+  /*border: 0.11rem solid rgb(0, 0, 0);*/
+  border: none;
+  background: white;
+  color: rgb(0, 0, 0);
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+}
+
+.btn-arrow:hover {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 4px;
+  /*border: 0.11rem solid rgb(217, 59, 59);*/
+  border: none;
+  background: #dddddd;
+  color: rgb(217, 59, 59);
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+}
+
+.btn-page {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 4px;
+  /*border: 0.11rem solid rgb(0, 0, 0);*/
+  border: none;
+  background: white;
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+}
+
+.btn-page:hover {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 4px;
+  /*border: 0.11rem solid rgb(217, 59, 59);*/
+  border: none;
+  background: #dddddd;
+  color: rgb(217, 59, 59);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+}
+
+.btn-active {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 4px;
+  /*border: 0.11rem solid rgb(0, 0, 0);*/
+  border: none;
+  background: #D93B3B;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.5);
+}
+
+/*input type number arrow hide*/
+/* Chrome, Safari, Edge, Opera */
+input#inputPageNumber1::-webkit-outer-spin-button,
+input#inputPageNumber1::-webkit-inner-spin-button,
+input#inputPageNumber2::-webkit-outer-spin-button,
+input#inputPageNumber2::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input#inputPageNumber1[type=number],
+input#inputPageNumber2[type=number] {
+  -moz-appearance: textfield;
+}
+/*input type number arrow hide*/

@@ -24,9 +24,21 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/font-awesome/css/font-awesome.min.css",
+              "./node_modules/flatpickr/dist/flatpickr.min.css",
+              "./node_modules/flatpickr/dist/themes/material_blue.css",
+              "./node_modules/flatpickr/dist/plugins/monthSelect/style.css",
+              "./node_modules/lightbox2/dist/css/lightbox.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.slim.min.js",
+              "./node_modules/lightbox2/dist/js/lightbox-plus-jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "./node_modules/flatpickr/dist/flatpickr.min.js",
+              "./node_modules/flatpickr/dist/plugins/monthSelect/index.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -119,6 +131,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "doctor-appointment"
+    }
+  },
+  "defaultProject": "doctor-appointment",
+  "cli": {
+    "analytics": false
+  }
 }
