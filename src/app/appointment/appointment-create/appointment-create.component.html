@@ -14,18 +14,42 @@
     </div>
 
     <div class="col-8 col-md-3 d-flex justify-content-center flex-column">
-      <div class="mb-4" #flatpickrEl>
-        <div #inputDate class="input-group" style="cursor: pointer">
-          <input type='text' placeholder="select date..." class="form-control" data-input/>
-          <div class="input-group-append">
-            <div class="input-group-text" data-clear>
-              <i class='fa fa-times'></i>
-            </div>
-          </div>
+
+      <!-- add the following snippet inside your template -->
+      <div class="input-group">
+        <!-- input box -->
+        <input class="form-control" name="mydate" placeholder="Select a date"
+               angular-mydatepicker #dp="angular-mydatepicker"
+               [(ngModel)]="model" [options]="myDpOptions"
+               (dateChanged)="onMyDateChanged($event)"/>
+
+        <!-- clear date button -->
+        <div class="input-group-append">
+          <button type="button" class="btn btn-secondary" *ngIf="model" (click)="dp.clearDate()">
+            <i class="fa fa-close"></i>
+          </button>
         </div>
+
+        <!-- toggle calendar button -->
+        <div class="input-group-append">
+          <button type="button" class="btn btn-secondary" (click)="dp.toggleCalendar()">
+            <i class="fa fa-calendar-o"></i>
+          </button>
+        </div>
+
       </div>
 
-      <select [disabled]="disableHours" class="form-control mb-4" name="time" id="time" (change)="changeTime($event)">
+<!--      <div class="mb-4" #flatpickrEl>-->
+<!--        <div #inputDate class="input-group" style="cursor: pointer">-->
+<!--          <input type='text' placeholder="select date..." class="form-control" data-input/>-->
+<!--          <div class="input-group-append">-->
+<!--            <div class="input-group-text" data-clear>-->
+<!--              <i class='fa fa-times'></i>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+      <select [disabled]="disableHours" class="form-control my-4" name="time" id="time" (change)="changeTime($event)">
         <option selected="true" disabled="disabled" value="time">Choose Time Slot</option>
         <option *ngFor="let hour of activeHours[selectedDayIndex]" value="{{ hour }}">{{ hour }}</option>
       </select>
@@ -34,13 +58,10 @@
         <button [disabled]="disableBtn" class="btn btn-primary" (click)="checkBookAppointment()">create appointment</button>
       </div>
 
+      </div>
+
     </div>
 
   </div>
 
-<!--  <div class="row mt-4 d-flex justify-content-center">-->
-<!--     <button class="btn btn-primary" (click)="createAppointment()">create appointment</button>-->
-<!--  </div>-->
-
-
-</div>
+<!--</div>-->

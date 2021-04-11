@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component, DoCheck,
+  ElementRef,
+  IterableDiffer,
+  IterableDiffers,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {AppointmentService} from '../services/appointment.service';
@@ -7,6 +17,7 @@ import * as moment from 'moment';
 import flatpickr from 'flatpickr';
 import Swal from 'sweetalert2';
 import {HttpParams} from '@angular/common/http';
+import {IAngularMyDpOptions, IMyDateModel} from 'angular-mydatepicker';
 
 @Component({
   selector: 'app-appointment-create',
@@ -14,21 +25,27 @@ import {HttpParams} from '@angular/common/http';
   styleUrls: ['./appointment-create.component.css']
 })
 export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('flatpickrEl', {static: false, read: ElementRef}) flatpickrEl: ElementRef;
-  @ViewChild('inputDate', {static: false, read: ElementRef}) inputDate: ElementRef;
+  // @ViewChild('flatpickrEl', {static: false, read: ElementRef}) flatpickrEl: ElementRef;
+  // @ViewChild('inputDate', {static: false, read: ElementRef}) inputDate: ElementRef;
   private subscription: Subscription = new Subscription();
+  private iterableDiffer: IterableDiffer<any>;
   private picker: any;
   doctorId: number;
   doctor: DoctorChoose;
   availabilityMap = new Map();
   activeDays = [];
+  inActiveDays = ['sat', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri'];
   activeDuration = [];
   activeHours = [];
   selectedDay: string;
+  selectedDate: string;
   selectedHour: string;
   selectedDayIndex: number;
   disableHours = true;
   disableBtn = true;
+
+  myDpOptions: IAngularMyDpOptions;
+  model: IMyDateModel = null;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appointmentService: AppointmentService) {
@@ -40,52 +57,53 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngAfterViewInit(): void {
-    this.picker = flatpickr(this.flatpickrEl.nativeElement, {
-      onChange: this.onDateChanged.bind(this),
-      disable: [
-        (date) => {
-          let dayFormat = '';
-          for (const activeDay of this.activeDays) {
-            if (activeDay === 'sun') {
-              dayFormat += '0-';
-            }
-            if (activeDay === 'mon') {
-              dayFormat += '1-';
-            }
-            if (activeDay === 'tue') {
-              dayFormat += '2-';
-            }
-            if (activeDay === 'wed') {
-              dayFormat += '3-';
-            }
-            if (activeDay === 'thu') {
-              dayFormat += '4-';
-            }
-            if (activeDay === 'fri') {
-              dayFormat += '5-';
-            }
-            if (activeDay === 'sat') {
-              dayFormat += '6-';
-            }
-          }
-          const spiltArr = dayFormat.split('-');
-          // console.log(spiltArr.length);
-          return (date.getDay() !== +spiltArr[0] &&
-            date.getDay() !== +spiltArr[1] &&
-            date.getDay() !== +spiltArr[2] &&
-            date.getDay() !== +spiltArr[3] &&
-            date.getDay() !== +spiltArr[4] &&
-            date.getDay() !== +spiltArr[5] &&
-            date.getDay() !== +spiltArr[6]
-          );
-        }
-      ], locale: {
-        firstDayOfWeek: 1
-      },
-      minDate: 'today',
-      dateFormat: 'd-m-Y',
-      wrap: true
-    });
+
+    // this.picker = flatpickr(this.flatpickrEl.nativeElement, {
+    //   onChange: this.onDateChanged.bind(this),
+    //   disable: [
+    //     (date) => {
+    //       let dayFormat = '';
+    //       for (const activeDay of this.activeDays) {
+    //         if (activeDay === 'sun') {
+    //           dayFormat += '0-';
+    //         }
+    //         if (activeDay === 'mon') {
+    //           dayFormat += '1-';
+    //         }
+    //         if (activeDay === 'tue') {
+    //           dayFormat += '2-';
+    //         }
+    //         if (activeDay === 'wed') {
+    //           dayFormat += '3-';
+    //         }
+    //         if (activeDay === 'thu') {
+    //           dayFormat += '4-';
+    //         }
+    //         if (activeDay === 'fri') {
+    //           dayFormat += '5-';
+    //         }
+    //         if (activeDay === 'sat') {
+    //           dayFormat += '6-';
+    //         }
+    //       }
+    //       const spiltArr = dayFormat.split('-');
+    //       // console.log(spiltArr.length);
+    //       return (date.getDay() !== +spiltArr[0] &&
+    //         date.getDay() !== +spiltArr[1] &&
+    //         date.getDay() !== +spiltArr[2] &&
+    //         date.getDay() !== +spiltArr[3] &&
+    //         date.getDay() !== +spiltArr[4] &&
+    //         date.getDay() !== +spiltArr[5] &&
+    //         date.getDay() !== +spiltArr[6]
+    //       );
+    //     }
+    //   ], locale: {
+    //     firstDayOfWeek: 1
+    //   },
+    //   minDate: 'today',
+    //   dateFormat: 'd-m-Y',
+    //   wrap: true
+    // });
   }
 
   getInitData(): void {
@@ -113,7 +131,29 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
         this.activeDuration.push(`${value}`);
       }
     }
+    this.createDpOptions();
+  }
 
+  createDpOptions(): void {
+    this.inActiveDays = this.inActiveDays.filter(val => !this.activeDays.includes(val));
+    for (let i = 0; i < this.inActiveDays.length; i++) {
+      this.inActiveDays[i] = this.inActiveDays[i].slice(0, -1);
+    }
+    // console.log(this.inActiveDays);
+
+    const myTime = new Date();
+    this.myDpOptions = {
+      dateRange: false,
+      dateFormat: 'dd-mm-yyyy',
+      // inline: true,
+      markCurrentDay: true,
+      disableUntil: {year: myTime.getUTCFullYear(), month: myTime.getUTCMonth() + 1, day: myTime.getUTCDate() - 1},
+      disableWeekdays: this.inActiveDays,
+    };
+  }
+
+  afterDateChanged(): void {
+    this.activeHours = [];
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.activeDays.length; i++) {
       this.activeHours.push([]);
@@ -124,7 +164,7 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
     for (let i = 0; i < this.activeDuration.length; i++) {
       timeDivided = this.activeDuration[i].split('-');
 
-      const date = '2021-04-11';
+      const date = this.selectedDate;
       const time = timeDivided[0].trim();
       const lastTime = timeDivided[1].trim();
       let dateTime = date + ' ' + time;
@@ -138,22 +178,45 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
         k = moment(dateTime).valueOf();
       }
     }
+    console.log(this.activeHours);
   }
 
-  onDateChanged(selectedDates): void {
-    const selectedDate = moment(selectedDates[0] || null).format('YYYY-MM-DD');
-    this.inputDate.nativeElement.value = selectedDate;
+  // onDateChanged(selectedDates): void {
+  //   const selectedDate = moment(selectedDates[0] || null).format('YYYY-MM-DD');
+  //   this.inputDate.nativeElement.value = selectedDate;
+  //
+  //   this.selectedDay = moment(selectedDates[0] || null).format('ddd').toLowerCase();
+  //   for (const [index, activeDay] of this.activeDays.entries()) {
+  //     if (this.selectedDay.toLowerCase() === activeDay.toLowerCase()) {
+  //       this.selectedDayIndex = index;
+  //     }
+  //   }
+  //
+  //   if (this.inputDate.nativeElement.value !== undefined || true || this.inputDate.nativeElement.value !== '') {
+  //     this.disableHours = false;
+  //   }
+  // }
 
-    this.selectedDay = moment(selectedDates[0] || null).format('ddd').toLowerCase();
+  onMyDateChanged(event: IMyDateModel): void {
+    console.log(event.singleDate.jsDate);
+    this.selectedDate = moment(event.singleDate.jsDate).format('YYYY-MM-DD');
+
+    this.selectedDay = moment(event.singleDate.jsDate).format('ddd').toLowerCase();
+    console.log(this.selectedDay);
     for (const [index, activeDay] of this.activeDays.entries()) {
-      if (this.selectedDay.toLowerCase() === activeDay.toLowerCase()) {
+      console.log(activeDay);
+      console.log(this.selectedDay);
+      if (this.selectedDay === activeDay) {
         this.selectedDayIndex = index;
       }
     }
+    console.log(this.selectedDayIndex);
 
-    if (this.inputDate.nativeElement.value !== undefined || true || this.inputDate.nativeElement.value !== '') {
+    if (this.selectedDate !== undefined || true || this.selectedDate !== '') {
       this.disableHours = false;
     }
+    console.log(this.selectedDate);
+    this.afterDateChanged();
   }
 
   changeTime(event): void {
@@ -185,7 +248,7 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
                 putBody.push(schedule);
                 const key = `${property}`;
                 const value = `${schedule[property]}`;
-                if (key === this.selectedDay && value === this.inputDate.nativeElement.value + ' ' + this.selectedHour) {
+                if (key === this.selectedDay && value === this.selectedDate + ' ' + this.selectedHour) {
                   Swal.fire({
                     title: 'ERROR!!!',
                     text: 'Already booked this appointment time',
@@ -202,7 +265,7 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
                     break;
                   } else if (i === scheduleArr.length - 1) {
                     console.log('from put');
-                    putBody.push({[this.selectedDay]: this.inputDate.nativeElement.value + ' ' + this.selectedHour});
+                    putBody.push({[this.selectedDay]: this.selectedDate + ' ' + this.selectedHour});
                     this.putAppointment(putBody);
                     break;
                   }
@@ -290,13 +353,13 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
       org: this.doctor.org,
       image: this.doctor.image,
       schedule: [
-        {[this.selectedDay]: this.inputDate.nativeElement.value + ' ' + this.selectedHour}
+        {[this.selectedDay]: this.selectedDate + ' ' + this.selectedHour}
       ]
     };
   }
 
   constructParamBooked(): HttpParams {
-    const date = this.inputDate.nativeElement.value + ' ' + this.selectedHour;
+    const date = this.selectedDate + ' ' + this.selectedHour;
     let params = new HttpParams();
     params = params.append('id', this.doctorId + '');
     // params = params.append(`schedule.${this.selectedDay}`, date);

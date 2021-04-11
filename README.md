@@ -4,7 +4,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+First start the `mock server`. Mock server is in the  `src/mock-server` folder.
+Instal `json-server` globally by this command `npm install -g json-server` or go to the folder `src/mock-server` &
+run `npm install json-server --save`. Then inside `src/mock-server` start a `command promt or CMD` &
+write `json-server doctors.json`. The mock server will run at port `3000`.
+Then Run `npm start` for a dev server. The `npm start` command will automatically open in your browser at 
+port `4200` OR Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

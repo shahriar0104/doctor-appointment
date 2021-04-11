@@ -10,6 +10,7 @@ import {SharedModule} from './shared/module/shared.module';
 import {AppointmentModule} from './appointment/module/appointment.module';
 import {AppointmentService} from './appointment/services/appointment.service';
 import {FormsModule} from '@angular/forms';
+import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {FormsModule} from '@angular/forms';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    AngularMyDatePickerModule,
     AppRoutingModule,
     SharedModule,
     AppointmentModule

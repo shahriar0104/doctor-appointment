@@ -342,6 +342,20 @@
           "sun": "2021-04-18 11:15 am"
         }
       ]
+    },
+    {
+      "id": 2,
+      "name": "Dr. Mary Ellis",
+      "org": "ABC Hospital",
+      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
+      "schedule": [
+        {
+          "thu": "2021-04-15 11:30 am"
+        },
+        {
+          "thu": "2021-04-15 11:15 am"
+        }
+      ]
     }
   ]
 }
