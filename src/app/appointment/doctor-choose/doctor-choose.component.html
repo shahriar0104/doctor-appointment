@@ -1,16 +1,43 @@
 <app-header></app-header>
 <div class="container-fluid">
-  <div class="row m-3 d-flex justify-content-center">
-<!--    <div class="col-12 col-md-5 col-lg-3 m-md-1 m-lg-1">-->
-      <div *ngFor="let doctor of paginatedData" class="card card-width shadow-lg m-3">
-        <img class="card-img-top img-height align-self-center" src="{{ doctor?.image }}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{ doctor?.name }}</h5>
-          <p class="card-text">{{ doctor?.org }}</p>
-          <a class="btn btn-primary" (click)="chooseDoctor(doctor.id)">Choose Doctor</a>
+
+  <div class="row mt-3 d-flex justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+
+      <div class="input-group shadow-lg">
+        <input type="text" class="form-control" placeholder="Search by name or organization"
+               aria-label="name or organization" aria-describedby="basic-addon2"
+               [(ngModel)]="targetStr" (ngModelChange)="onFilter()">
+        <div class="input-group-append">
+          <select name="sortBy" id="sortBy" (change)="changeSortIndex($event)">
+            <option selected="true" disabled="disabled" value="-1">Sort By</option>
+            <option value="1">Name</option>
+            <option value="3">Organization</option>
+          </select>
+        </div>
+        <div class="input-group-append">
+          <button class="input-group-text" id="basic-addon3" (click)="sortBy(selectedSortIndex)">
+              <span>
+                  <i class="fa fa-sort ml-2" *ngIf="defaultActive[selectedSortIndex]"></i>
+                  <i class="fa fa-caret-up ml-2" *ngIf="ascActive[selectedSortIndex]"></i>
+                  <i class="fa fa-caret-down ml-2" *ngIf="descActive[selectedSortIndex]"></i>
+              </span>
+          </button>
         </div>
       </div>
-<!--    </div>-->
+
+    </div>
+  </div>
+
+  <div class="row m-3 d-flex justify-content-center">
+    <div *ngFor="let doctor of paginatedData" class="card card-width shadow-lg m-3">
+      <img class="card-img-top img-height align-self-center" src="{{ doctor?.image }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title" [innerHTML]="doctor?.name | highlight : targetStr"></h5>
+        <p class="card-text" [innerHTML]="doctor?.org | highlight : targetStr"></p>
+        <a class="btn btn-primary" (click)="chooseDoctor(doctor.id)">Choose Doctor</a>
+      </div>
+    </div>
   </div>
 
   <div class="mx-5">

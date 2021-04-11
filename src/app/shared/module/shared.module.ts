@@ -6,15 +6,19 @@ import {HeaderModule} from '../../header/header.module';
 import {PaginationModule} from '../components/pagination/pagination.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NetworkInterceptor} from '../services/network-interceptor.service';
+import {HighlightPipe} from '../pipe/highlight.pipe';
 
 @NgModule({
+  declarations: [
+    HighlightPipe
+  ],
   imports: [
     RouterModule,
     CommonModule,
     HttpClientModule,
     FormsModule,
     HeaderModule,
-    PaginationModule
+    PaginationModule,
   ],
   providers: [
     {
@@ -28,7 +32,8 @@ import {NetworkInterceptor} from '../services/network-interceptor.service';
     CommonModule,
     FormsModule,
     HeaderModule,
-    PaginationModule
+    PaginationModule,
+    HighlightPipe
   ]
 })
 export class SharedModule {

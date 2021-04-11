@@ -13,3 +13,7 @@
 .img-width {
   max-width: 20rem;
 }
+
+:host ::ng-deep .highlight {
+  background-color: #F2E366;
+}
