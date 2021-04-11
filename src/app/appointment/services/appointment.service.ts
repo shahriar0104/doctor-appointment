@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, SkipSelf} from '@angular/core';
 import {Observable} from 'rxjs';
 import {DoctorChoose} from '../models/doctor-choose.model';
 import {HttpClient, HttpParams} from '@angular/common/http';

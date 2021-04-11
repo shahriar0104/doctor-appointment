@@ -1,7 +1,15 @@
+.card {
+  display: block !important;
+}
+
 .card-width {
   width: 20rem;
 }
 
 .img-height {
-  height: 20rem;
+  max-height: 20rem;
+}
+
+.img-width {
+  max-width: 20rem;
 }

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DoctorChooseComponent} from '../doctor-choose/doctor-choose.component';
 import {AppointmentCreateComponent} from '../appointment-create/appointment-create.component';
+import {PageNotFoundComponent} from '../../shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,8 @@ const routes: Routes = [
       {path: 'create/:id', component: AppointmentCreateComponent}
     ]
   },
+  {path: 'error', component: PageNotFoundComponent},
+  {path: '**', redirectTo: '/error', pathMatch: 'full'},
 ];
 
 @NgModule({

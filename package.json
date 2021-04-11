@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve --open --proxy-config proxy.conf.json",
     "build": "ng build",
+    "prod": "ng build --configuration=production --prod --output-hashing=all --base-href /docappointment/",
+    "staging": "ng build --configuration=staging --prod --output-hashing=all --base-href /stagingdocappointment/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

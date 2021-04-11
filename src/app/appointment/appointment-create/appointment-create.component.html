@@ -8,14 +8,12 @@
         <div class="card-body">
           <h5 class="card-title">{{ doctor?.name }}</h5>
           <p class="card-text">{{ doctor?.org }}</p>
-          <!--      <a href="#" class="btn btn-primary">Go somewhere</a>-->
         </div>
       </div>
     </div>
 
     <div class="col-8 col-md-3 d-flex justify-content-center flex-column">
 
-      <!-- add the following snippet inside your template -->
       <div class="input-group">
         <!-- input box -->
         <input class="form-control" name="mydate" placeholder="Select a date"
@@ -25,7 +23,7 @@
 
         <!-- clear date button -->
         <div class="input-group-append">
-          <button type="button" class="btn btn-secondary" *ngIf="model" (click)="dp.clearDate()">
+          <button type="button" class="btn btn-secondary" *ngIf="model" (click)="dp.clearDate(); clearMyDate()">
             <i class="fa fa-close"></i>
           </button>
         </div>
@@ -36,18 +34,7 @@
             <i class="fa fa-calendar-o"></i>
           </button>
         </div>
-
       </div>
-
-<!--      <div class="mb-4" #flatpickrEl>-->
-<!--        <div #inputDate class="input-group" style="cursor: pointer">-->
-<!--          <input type='text' placeholder="select date..." class="form-control" data-input/>-->
-<!--          <div class="input-group-append">-->
-<!--            <div class="input-group-text" data-clear>-->
-<!--              <i class='fa fa-times'></i>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
 
       <select [disabled]="disableHours" class="form-control my-4" name="time" id="time" (change)="changeTime($event)">
         <option selected="true" disabled="disabled" value="time">Choose Time Slot</option>
@@ -55,13 +42,12 @@
       </select>
 
       <div class="d-flex justify-content-center">
-        <button [disabled]="disableBtn" class="btn btn-primary" (click)="checkBookAppointment()">create appointment</button>
-      </div>
-
+        <button [disabled]="disableBtn" class="btn btn-primary" (click)="checkBookAppointment()">create appointment
+        </button>
       </div>
 
     </div>
 
   </div>
 
-<!--</div>-->
+</div>

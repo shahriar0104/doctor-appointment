@@ -1,20 +1,9 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component, DoCheck,
-  ElementRef,
-  IterableDiffer,
-  IterableDiffers,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {AppointmentService} from '../services/appointment.service';
 import {DoctorChoose} from '../models/doctor-choose.model';
 import * as moment from 'moment';
-import flatpickr from 'flatpickr';
 import Swal from 'sweetalert2';
 import {HttpParams} from '@angular/common/http';
 import {IAngularMyDpOptions, IMyDateModel} from 'angular-mydatepicker';
@@ -24,12 +13,8 @@ import {IAngularMyDpOptions, IMyDateModel} from 'angular-mydatepicker';
   templateUrl: './appointment-create.component.html',
   styleUrls: ['./appointment-create.component.css']
 })
-export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDestroy {
-  // @ViewChild('flatpickrEl', {static: false, read: ElementRef}) flatpickrEl: ElementRef;
-  // @ViewChild('inputDate', {static: false, read: ElementRef}) inputDate: ElementRef;
+export class AppointmentCreateComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  private iterableDiffer: IterableDiffer<any>;
-  private picker: any;
   doctorId: number;
   doctor: DoctorChoose;
   availabilityMap = new Map();
@@ -54,56 +39,6 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
   ngOnInit(): void {
     this.doctorId = this.activatedRoute.snapshot.params.id;
     this.getInitData();
-  }
-
-  ngAfterViewInit(): void {
-
-    // this.picker = flatpickr(this.flatpickrEl.nativeElement, {
-    //   onChange: this.onDateChanged.bind(this),
-    //   disable: [
-    //     (date) => {
-    //       let dayFormat = '';
-    //       for (const activeDay of this.activeDays) {
-    //         if (activeDay === 'sun') {
-    //           dayFormat += '0-';
-    //         }
-    //         if (activeDay === 'mon') {
-    //           dayFormat += '1-';
-    //         }
-    //         if (activeDay === 'tue') {
-    //           dayFormat += '2-';
-    //         }
-    //         if (activeDay === 'wed') {
-    //           dayFormat += '3-';
-    //         }
-    //         if (activeDay === 'thu') {
-    //           dayFormat += '4-';
-    //         }
-    //         if (activeDay === 'fri') {
-    //           dayFormat += '5-';
-    //         }
-    //         if (activeDay === 'sat') {
-    //           dayFormat += '6-';
-    //         }
-    //       }
-    //       const spiltArr = dayFormat.split('-');
-    //       // console.log(spiltArr.length);
-    //       return (date.getDay() !== +spiltArr[0] &&
-    //         date.getDay() !== +spiltArr[1] &&
-    //         date.getDay() !== +spiltArr[2] &&
-    //         date.getDay() !== +spiltArr[3] &&
-    //         date.getDay() !== +spiltArr[4] &&
-    //         date.getDay() !== +spiltArr[5] &&
-    //         date.getDay() !== +spiltArr[6]
-    //       );
-    //     }
-    //   ], locale: {
-    //     firstDayOfWeek: 1
-    //   },
-    //   minDate: 'today',
-    //   dateFormat: 'd-m-Y',
-    //   wrap: true
-    // });
   }
 
   getInitData(): void {
@@ -181,22 +116,6 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
     console.log(this.activeHours);
   }
 
-  // onDateChanged(selectedDates): void {
-  //   const selectedDate = moment(selectedDates[0] || null).format('YYYY-MM-DD');
-  //   this.inputDate.nativeElement.value = selectedDate;
-  //
-  //   this.selectedDay = moment(selectedDates[0] || null).format('ddd').toLowerCase();
-  //   for (const [index, activeDay] of this.activeDays.entries()) {
-  //     if (this.selectedDay.toLowerCase() === activeDay.toLowerCase()) {
-  //       this.selectedDayIndex = index;
-  //     }
-  //   }
-  //
-  //   if (this.inputDate.nativeElement.value !== undefined || true || this.inputDate.nativeElement.value !== '') {
-  //     this.disableHours = false;
-  //   }
-  // }
-
   onMyDateChanged(event: IMyDateModel): void {
     console.log(event.singleDate.jsDate);
     this.selectedDate = moment(event.singleDate.jsDate).format('YYYY-MM-DD');
@@ -217,6 +136,11 @@ export class AppointmentCreateComponent implements OnInit, AfterViewInit, OnDest
     }
     console.log(this.selectedDate);
     this.afterDateChanged();
+  }
+
+  clearMyDate(): void {
+    this.disableHours = true;
+    this.disableBtn = true;
   }
 
   changeTime(event): void {
