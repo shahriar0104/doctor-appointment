@@ -17,7 +17,9 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Specific production and staging command added in `package.json` file.
+U can run `npm prod` for production build & `npm staging` for staging build or u can change that command as your need.
+The build artifacts will be stored in the `dist/` directory. The `--prod` flag & `root` directory also set in those commands for a production build.
 
 ## Running unit tests
 
