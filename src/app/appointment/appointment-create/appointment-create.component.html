@@ -41,13 +41,53 @@
         <option *ngFor="let hour of activeHours[selectedDayIndex]" value="{{ hour }}">{{ hour }}</option>
       </select>
 
-      <div class="d-flex justify-content-center">
-        <button [disabled]="disableBtn" class="btn btn-primary" (click)="checkBookAppointment()">create appointment
-        </button>
-      </div>
+      <!--      <div class="d-flex justify-content-center">-->
+      <!--        <button [disabled]="disableBtn" class="btn btn-primary" (click)="checkBookAppointment()">create appointment-->
+      <!--        </button>-->
+      <!--      </div>-->
 
     </div>
 
+  </div>
+
+  <div *ngIf="!disableHours" class="card shadow-lg m-4 align-self-center">
+    <div class="card-body">
+      <div class="d-flex justify-content-center">
+        <h5 class="card-title">Patient Info</h5>
+      </div>
+
+      <hr>
+
+      <form #form="ngForm">
+
+      <div class="form-group row d-flex justify-content-center">
+        <div class="col-12 col-md-5 mr-1">
+          <input type="text" class="form-control" name="patientName" placeholder="patient name*" required ngModel>
+        </div>
+        <div class="col-12 col-md-5 ml-1">
+          <input type="text" class="form-control" name="mobile" placeholder="mobile number*"
+                 required ngModel pattern="[0-9\+]*" (keypress)="isNumber($event)">
+        </div>
+      </div>
+
+      <div class="form-group row my-3 d-flex justify-content-center">
+        <div class="col-12 col-md-5 mr-1">
+          <input type="text" class="form-control" name="address" placeholder="address*" required ngModel>
+        </div>
+        <div class="col-12 col-md-5 ml-1">
+          <input type="text" class="form-control" name="visitReason" placeholder="visit reason*" required ngModel>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button [disabled]="form.invalid" class="btn btn-primary" type="submit"
+                (click)="checkBookAppointment()">create appointment
+        </button>
+      </div>
+
+      </form>
+
+    </div>
   </div>
 
 </div>

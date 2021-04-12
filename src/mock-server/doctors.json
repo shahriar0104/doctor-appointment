@@ -302,75 +302,28 @@
   ],
   "appointment": [
     {
-      "id": 1,
-      "name": "Dr. John Doe",
-      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
-      "org": "Kings London Hospital",
-      "schedule": [
-        {
-          "sun": "2021-04-11 10:00 AM"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Dr. John Doe",
-      "org": "Kings London Hospital",
-      "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
-      "schedule": [
-        {
-          "sun": "2021-04-11 10:00 am"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Dr. Mary Ellis",
-      "org": "ABC Hospital",
-      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
-      "schedule": [
-        {
-          "sun": "2021-04-18 11:00 am"
-        },
-        {
-          "sun": "2021-04-18 10:00 am"
-        },
-        {
-          "sun": "2021-04-18 10:15 am"
-        },
-        {
-          "sun": "2021-04-18 11:15 am"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Dr. Mary Ellis",
-      "org": "ABC Hospital",
-      "image": "https://pbs.twimg.com/profile_images/1090344552324583425/NjnP-xMP.jpg",
-      "schedule": [
-        {
-          "thu": "2021-04-15 11:30 am"
-        },
-        {
-          "thu": "2021-04-15 11:15 am"
-        },
-        {
-          "sun": "2021-04-18 10:30 am"
-        },
-        {
-          "sun": "2021-04-18 11:00 am"
-        },
-        {
-          "sun": "2021-04-18 11:30 am"
-        },
-        {
-          "sun": "2021-04-11 11:00 am"
-        },
-        {
-          "thu": "2021-04-15 11:00 am"
-        }
-      ]
+      "patientName": "shadman",
+      "mobile": "01965392623",
+      "address": "ashkona water pump",
+      "visitReason": "headache",
+      "doctorInfo": {
+        "id": 1,
+        "name": "Dr. John Doe",
+        "org": "Kings London Hospital",
+        "image": "https://cdn.gutensite.com/web001/site/7398/843689/843689-xl.png",
+        "schedule": [
+          {
+            "wed": "2021-04-21 07:00 pm"
+          },
+          {
+            "wed": "2021-04-21 06:00 pm"
+          },
+          {
+            "wed": "2021-04-21 06:15 pm"
+          }
+        ]
+      },
+      "id": 1
     }
   ]
 }

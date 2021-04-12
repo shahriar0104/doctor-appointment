@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {AppointmentService} from '../services/appointment.service';
@@ -7,6 +7,8 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import {HttpParams} from '@angular/common/http';
 import {IAngularMyDpOptions, IMyDateModel} from 'angular-mydatepicker';
+import {Patient} from '../models/patient.model';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-appointment-create',
@@ -14,6 +16,7 @@ import {IAngularMyDpOptions, IMyDateModel} from 'angular-mydatepicker';
   styleUrls: ['./appointment-create.component.css']
 })
 export class AppointmentCreateComponent implements OnInit, OnDestroy {
+  @ViewChild('form', {static: false}) form: NgForm;
   private subscription: Subscription = new Subscription();
   doctorId: number;
   doctor: DoctorChoose;
@@ -28,6 +31,8 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
   selectedDayIndex: number;
   disableHours = true;
   disableBtn = true;
+
+  lastPatientInfo: Patient;
 
   myDpOptions: IAngularMyDpOptions;
   model: IMyDateModel = null;
@@ -152,54 +157,11 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
 
   checkBookAppointment(): void {
     this.disableBtn = true;
+
     this.subscription.add(
-      this.appointmentService.checkAlreadyBooked(this.constructParamBooked())
+      this.appointmentService.fetchAppointments()
         .subscribe(response => {
-
-          if (response.length !== 0) {
-            const scheduleArr = response[0].schedule;
-
-            console.log(scheduleArr);
-            const putBody = [];
-            let breakPtr = false;
-
-            // tslint:disable-next-line:prefer-for-of
-            for (let i = 0; i < scheduleArr.length; i++) {
-              const schedule = scheduleArr[i];
-              // tslint:disable-next-line:forin
-              for (const property in schedule) {
-                // console.log(`${property}: ${schedule[property]}`);
-                putBody.push(schedule);
-                const key = `${property}`;
-                const value = `${schedule[property]}`;
-                if (key === this.selectedDay && value === this.selectedDate + ' ' + this.selectedHour) {
-                  Swal.fire({
-                    title: 'ERROR!!!',
-                    text: 'Already booked this appointment time',
-                    icon: 'error',
-                    allowOutsideClick: false
-                  });
-
-                  this.disableBtn = false;
-                  breakPtr = true;
-                  break;
-                } else {
-                  console.log(breakPtr);
-                  if (breakPtr) {
-                    break;
-                  } else if (i === scheduleArr.length - 1) {
-                    console.log('from put');
-                    putBody.push({[this.selectedDay]: this.selectedDate + ' ' + this.selectedHour});
-                    this.putAppointment(putBody);
-                    break;
-                  }
-                }
-              }
-            }
-          } else {
-            console.log('from create');
-            this.createAppointment();
-          }
+          this.processBookedAppointment(response);
         }, error => {
           this.disableBtn = false;
           Swal.fire({
@@ -212,11 +174,87 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
     );
   }
 
+  processBookedAppointment(response: Patient[]): void {
+    console.log(response);
+    if (response.length === 0) {
+      console.log('from create');
+      this.createAppointment();
+    } else {
+      const patient = this.patientMatchFull(response);
+      if (patient !== null) {
+        // tslint:disable-next-line:prefer-for-of
+          const scheduleArr = patient.doctorInfo.schedule;
+          console.log(scheduleArr);
+          const putBody = [];
+          let breakPtr = false;
+
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < scheduleArr.length; i++) {
+            const schedule = scheduleArr[i];
+            putBody.push(schedule);
+            // tslint:disable-next-line:forin
+            for (const property in schedule) {
+              // console.log(`${property}: ${schedule[property]}`);
+              const key = `${property}`;
+              const value = `${schedule[property]}`;
+              if (key === this.selectedDay && value === this.selectedDate + ' ' + this.selectedHour) {
+                Swal.fire({
+                  title: 'ERROR!!!',
+                  text: 'Already booked this appointment time',
+                  icon: 'error',
+                  allowOutsideClick: false
+                });
+
+                this.disableBtn = false;
+                breakPtr = true;
+                break;
+              } else {
+                console.log(breakPtr);
+                if (breakPtr) {
+                  break;
+                } else if (i === scheduleArr.length - 1) {
+                  console.log('from put');
+                  putBody.push({[this.selectedDay]: this.selectedDate + ' ' + this.selectedHour});
+                  this.putAppointment(putBody);
+                  break;
+                }
+              }
+            }
+          }
+      } else {
+        console.log('from down create');
+        this.createAppointment();
+      }
+    }
+  }
+
+  patientMatchFull(response: Patient[]): Patient {
+    const body = this.createPatientBody();
+    // tslint:disable-next-line:prefer-for-of
+    let patient;
+    for (let i = 0; i < response.length; i++) {
+      patient = response[i];
+      if (
+        patient.patientName === body.patientName &&
+        patient.mobile === body.mobile &&
+        patient.address === body.address &&
+        patient.visitReason === body.visitReason
+      ) {
+        console.log('match fully');
+        return patient;
+      } else if (i === response.length - 1) {
+        console.log('not match fully');
+        return null;
+      }
+    }
+  }
+
   putAppointment(body): void {
     this.subscription.add(
       this.appointmentService.putAppointment(this.doctorId, this.createPutBody(body))
         .subscribe(response => {
           this.disableBtn = false;
+          this.lastPatientInfo = response;
           console.log(response);
           Swal.fire({
             title: 'SUCCESS!!!',
@@ -241,6 +279,7 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
       this.appointmentService.postAppointment(this.createPostBody())
         .subscribe(response => {
           this.disableBtn = false;
+          this.lastPatientInfo = response;
           console.log(response);
           Swal.fire({
             title: 'SUCCESS!!!',
@@ -260,18 +299,22 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
     );
   }
 
-  createPutBody(putBody): DoctorChoose {
-    return {
+  createPutBody(putBody): Patient {
+    const body = this.createPatientBody();
+    body.doctorInfo = {
       id: this.doctor.id,
       name: this.doctor.name,
       org: this.doctor.org,
       image: this.doctor.image,
       schedule: putBody
     };
+    console.log(body);
+    return body;
   }
 
-  createPostBody(): DoctorChoose {
-    return {
+  createPostBody(): Patient {
+    const body = this.createPatientBody();
+    body.doctorInfo = {
       id: this.doctor.id,
       name: this.doctor.name,
       org: this.doctor.org,
@@ -280,15 +323,40 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
         {[this.selectedDay]: this.selectedDate + ' ' + this.selectedHour}
       ]
     };
+    console.log(body);
+    return body;
+  }
+
+  createPatientBody(): Patient {
+    return {
+      patientName: (this.form.value.patientName).trim(),
+      mobile: (this.form.value.mobile).trim(),
+      address: (this.form.value.address).trim(),
+      visitReason: (this.form.value.visitReason).trim(),
+    };
   }
 
   constructParamBooked(): HttpParams {
     const date = this.selectedDate + ' ' + this.selectedHour;
+    console.log(this.lastPatientInfo);
     let params = new HttpParams();
-    params = params.append('id', this.doctorId + '');
+    if (this.lastPatientInfo !== undefined) {
+      params = params.append('patientName', this.lastPatientInfo.patientName);
+      params = params.append('mobile', this.lastPatientInfo.mobile);
+      params = params.append('address', this.lastPatientInfo.address);
+      params = params.append('visitReason', this.lastPatientInfo.visitReason);
+      params = params.append('doctorInfo.id', this.doctorId + '');
+    }
     // params = params.append(`schedule.${this.selectedDay}`, date);
     console.log(params);
     return params;
+  }
+
+  isNumber(event): void {
+    const char = String.fromCharCode(event.which);
+    if (!(/[0-9\+\#\*]/.test(char))) {
+      event.preventDefault();
+    }
   }
 
   ngOnDestroy(): void {
