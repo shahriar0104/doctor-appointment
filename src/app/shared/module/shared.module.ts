@@ -4,9 +4,8 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {HeaderModule} from '../../header/header.module';
 import {PaginationModule} from '../components/pagination/pagination.module';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {NetworkInterceptor} from '../services/network-interceptor.service';
 import {HighlightPipe} from '../pipe/highlight.pipe';
+import {LoadingBarModule} from '@ngx-loading-bar/core';
 
 @NgModule({
   declarations: [
@@ -15,17 +14,10 @@ import {HighlightPipe} from '../pipe/highlight.pipe';
   imports: [
     RouterModule,
     CommonModule,
-    HttpClientModule,
+    LoadingBarModule,
     FormsModule,
     HeaderModule,
     PaginationModule,
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NetworkInterceptor,
-      multi: true
-    }
   ],
   exports: [
     RouterModule,

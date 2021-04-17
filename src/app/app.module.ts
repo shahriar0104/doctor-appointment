@@ -3,12 +3,15 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {SharedModule} from './shared/module/shared.module';
 import {AppointmentModule} from './appointment/module/appointment.module';
 import {FormsModule} from '@angular/forms';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 import {PageNotFoundComponent} from './shared/components/page-not-found/page-not-found.component';
 import {CoreModule} from './core/core.module';
+import {EffectsModule} from '@ngrx/effects';
+import * as fromApp from './store/app.reducer';
+import {StoreModule} from '@ngrx/store';
+import {DoctorEffects} from './appointment/doctor-choose/store/doctor-choose.effects';
 
 @NgModule({
   declarations: [
@@ -20,8 +23,9 @@ import {CoreModule} from './core/core.module';
     FormsModule,
     AngularMyDatePickerModule,
     AppRoutingModule,
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([DoctorEffects]),
     CoreModule,
-    SharedModule,
     AppointmentModule
   ],
   bootstrap: [AppComponent]

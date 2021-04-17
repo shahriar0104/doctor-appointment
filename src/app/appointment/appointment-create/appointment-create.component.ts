@@ -9,6 +9,7 @@ import {HttpParams} from '@angular/common/http';
 import {IAngularMyDpOptions, IMyDateModel} from 'angular-mydatepicker';
 import {Patient} from '../models/patient.model';
 import {NgForm} from '@angular/forms';
+import {LoadingBarService} from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-appointment-create',
@@ -38,7 +39,8 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
   model: IMyDateModel = null;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private appointmentService: AppointmentService) {
+              private appointmentService: AppointmentService,
+              private loadingBarService: LoadingBarService) {
   }
 
   ngOnInit(): void {
@@ -47,12 +49,14 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
   }
 
   getInitData(): void {
+    this.loadingBarService.start();
     this.subscription.add(
       this.appointmentService.fetchSpecificDoctors(this.doctorId)
         .subscribe(response => {
           this.doctor = response;
           this.processDoctorData(this.doctor.availability);
         }, error => {
+          this.loadingBarService.complete();
           Swal.fire({
             title: 'ERROR!!!',
             text: error.error.message + '',
@@ -72,6 +76,7 @@ export class AppointmentCreateComponent implements OnInit, OnDestroy {
       }
     }
     this.createDpOptions();
+    this.loadingBarService.complete();
   }
 
   createDpOptions(): void {

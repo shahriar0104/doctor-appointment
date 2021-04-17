@@ -8,6 +8,10 @@ import {catchError} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import {FilterService} from '../../shared/services/filter.service';
 import {SortService} from '../../shared/services/sort.service';
+import {Store} from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
+import * as DoctorActions from './store/doctor-choose.actions';
+import {LoadingBarService} from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-doctor-choose',
@@ -43,7 +47,11 @@ export class DoctorChooseComponent implements OnInit, OnDestroy {
               private router: Router,
               private appointmentService: AppointmentService,
               private filterService: FilterService,
-              private sortService: SortService) { }
+              private sortService: SortService,
+              private loadingBarService: LoadingBarService,
+              private store: Store<fromApp.AppState>) {
+    this.store.dispatch(new DoctorActions.FetchDoctors());
+  }
 
   ngOnInit(): void {
     this.defaultActive = [];
@@ -59,13 +67,37 @@ export class DoctorChooseComponent implements OnInit, OnDestroy {
     this.getInitData();
   }
 
+  // getInitData(): void {
+  //   this.loadingBarService.start();
+  //   this.subscription.add(
+  //     this.store.select('doctors')
+  //       .subscribe(doctorState => {
+  //         console.log(doctorState);
+  //         if (doctorState.doctorError != null) {
+  //           console.log(doctorState.doctorError);
+  //           Swal.fire({
+  //             title: 'ERROR!!!',
+  //             text: doctorState.doctorError + '',
+  //             icon: 'error',
+  //             allowOutsideClick: false
+  //           });
+  //         } else {
+  //           this.rowData = doctorState.doctors;
+  //         }
+  //       })
+  //   );
+  //   this.loadingBarService.complete();
+  // }
+
   getInitData(): void {
+    this.loadingBarService.start();
     this.subscription.add(
       this.appointmentService.fetchDoctors()
         .subscribe(response => {
           this.rowData = response;
           console.log(response);
         }, error => {
+          this.loadingBarService.complete();
           Swal.fire({
             title: 'ERROR!!!',
             text: error.error.message + '',
@@ -74,6 +106,7 @@ export class DoctorChooseComponent implements OnInit, OnDestroy {
           });
         }),
     );
+    this.loadingBarService.complete();
   }
 
   changePaginatedData(data): void {
