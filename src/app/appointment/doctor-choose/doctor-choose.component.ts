@@ -67,47 +67,47 @@ export class DoctorChooseComponent implements OnInit, OnDestroy {
     this.getInitData();
   }
 
-  // getInitData(): void {
-  //   this.loadingBarService.start();
-  //   this.subscription.add(
-  //     this.store.select('doctors')
-  //       .subscribe(doctorState => {
-  //         console.log(doctorState);
-  //         if (doctorState.doctorError != null) {
-  //           console.log(doctorState.doctorError);
-  //           Swal.fire({
-  //             title: 'ERROR!!!',
-  //             text: doctorState.doctorError + '',
-  //             icon: 'error',
-  //             allowOutsideClick: false
-  //           });
-  //         } else {
-  //           this.rowData = doctorState.doctors;
-  //         }
-  //       })
-  //   );
-  //   this.loadingBarService.complete();
-  // }
-
   getInitData(): void {
     this.loadingBarService.start();
     this.subscription.add(
-      this.appointmentService.fetchDoctors()
-        .subscribe(response => {
-          this.rowData = response;
-          console.log(response);
-        }, error => {
-          this.loadingBarService.complete();
-          Swal.fire({
-            title: 'ERROR!!!',
-            text: error.error.message + '',
-            icon: 'error',
-            allowOutsideClick: false
-          });
-        }),
+      this.store.select('doctors')
+        .subscribe(doctorState => {
+          console.log(doctorState);
+          if (doctorState.doctorError != null) {
+            console.log(doctorState.doctorError);
+            Swal.fire({
+              title: 'ERROR!!!',
+              text: doctorState.doctorError + '',
+              icon: 'error',
+              allowOutsideClick: false
+            });
+          } else {
+            this.rowData = doctorState.doctors;
+          }
+        })
     );
     this.loadingBarService.complete();
   }
+
+  // getInitData(): void {
+  //   this.loadingBarService.start();
+  //   this.subscription.add(
+  //     this.appointmentService.fetchDoctors()
+  //       .subscribe(response => {
+  //         this.rowData = response;
+  //         console.log(response);
+  //       }, error => {
+  //         this.loadingBarService.complete();
+  //         Swal.fire({
+  //           title: 'ERROR!!!',
+  //           text: error.error.message + '',
+  //           icon: 'error',
+  //           allowOutsideClick: false
+  //         });
+  //       }),
+  //   );
+  //   this.loadingBarService.complete();
+  // }
 
   changePaginatedData(data): void {
     this.paginatedData = data;
